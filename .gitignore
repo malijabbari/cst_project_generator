@@ -2,7 +2,7 @@
 .idea/
 
 ast_file.ast
-random_shape.stp
+tmp_object.stp
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
