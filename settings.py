@@ -8,7 +8,8 @@ project_folder_prefix = 'project_'
 project_folder_name_n_zero_padding = 5
 max_projects = 10000
 is_running_on_desktop = os.name == 'nt'  # nt: Windows , posix: Linux
-path_cst_exe_server = ''
+path_cst_exe_server = '/cm/shared/apps/cst/CST_STUDIO_SUITE_2020' \
+                      '/cst_design_environment.exe'
 path_cst_exe_desktop = 'C:/Program Files (x86)/CST Studio Suite 2020/' \
                        'CST DESIGN ENVIRONMENT.exe'
 
