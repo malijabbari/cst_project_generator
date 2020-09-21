@@ -134,7 +134,7 @@ def _scale_objects(objects, scales):
         obj.Document.removeObject(obj.Name)
         clone.Label = label
         objects[object_idx] = clone
-    # recompute needs to be caled for the scaling to take effect
+    # recompute needs to be called for the scaling to take effect
     objects[0].Document.recompute()
     return objects
 

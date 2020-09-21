@@ -1,4 +1,5 @@
 import numpy as np
+from numpy import pi
 import matplotlib.pyplot as plt
 import mpl_toolkits
 
@@ -16,9 +17,9 @@ def random_2d_shapes():
     s = np.fft.ifft(f, n_points)
     a = np.linspace(0, 2 * np.pi, n_points + 1)
     s = np.append(s, s[0])
-    A = np.absolute(s)
-    x = A * np.cos(a)
-    y = A * np.sin(a)
+    aa = np.absolute(s)
+    x = aa * np.cos(a)
+    y = aa * np.sin(a)
     plt.plot(s.real)
     plt.plot(s.imag)
     plt.plot(np.absolute(s))

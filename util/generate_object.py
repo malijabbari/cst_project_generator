@@ -108,8 +108,8 @@ def generate_random_radii(f_max, n_points, rate):
     if n_points > f_max:
         n = n_points - f_max
         power = np.append(power, [0] * n)
-    cilm = pyshtools.SHCoeffs.from_random(power, kind='complex')
-    r = np.absolute(cilm.expand().data)
+    c = pyshtools.SHCoeffs.from_random(power, kind='complex')
+    r = np.absolute(c.expand().data)
     t = np.linspace(0, pi, r.shape[0])
     p = np.linspace(-pi, pi, r.shape[1])
     phi, theta = np.meshgrid(p, t)
@@ -209,7 +209,7 @@ def convert_shell_stp_to_object_stp(filename: str):
     object_name = Path(filename).stem
 
     # import shape
-    Import.insert(filename, documentname)[0][0]
+    _ = Import.insert(filename, documentname)[0][0]
 
     # make solid
     __s__ = doc.Compound.Shape.Faces
@@ -220,10 +220,9 @@ def convert_shell_stp_to_object_stp(filename: str):
     del __s__, __o__
 
     # export
-    __objs__ = []
-    __objs__.append(doc.getObject(object_name))
-    Import.export(__objs__, filename)
-    del __objs__
+    obj = [doc.getObject(object_name)]
+    Import.export(obj, filename)
+    del obj
 
     # remove all objects
     for obj in doc.findObjects():

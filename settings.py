@@ -13,7 +13,7 @@ path_cst_exe_server = '/cm/shared/apps/cst/CST_STUDIO_SUITE_2020' \
 path_cst_exe_desktop = 'C:/Program Files (x86)/CST Studio Suite 2020/' \
                        'CST DESIGN ENVIRONMENT.exe'
 path_freecad_desktop = 'C:/Program Files/FreeCAD/FreeCAD_0.19.22474/bin'
-path_freecad_server = ''
+path_freecad_server = '/home/tue/s111167/freecad/bin'
 
 # model settings
 export_path_model = 'C:/Users/Dennis/Documents/generated_models'

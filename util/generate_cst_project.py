@@ -75,8 +75,6 @@ def generate_cst_project():
 
 
 def load_model_into_cst_project(dst_paths: DstPaths, materials: Materials):
-    line = '-' * 50
-
     # first generate script and macro
     print('\t...generating script & macro')
     script, macro = generate_macro_and_script(dst_paths, materials)
