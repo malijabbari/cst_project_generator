@@ -1,0 +1,94 @@
+Sub Main ()
+
+	' load model
+	With STEP
+	     .Reset
+	     .Healing "0"
+	     .ScaleToUnit "0"
+	     .FileName "$model_path"
+	     .Id "1"
+	     .Version "11.0"
+	     .ImportToActiveCoordinateSystem "True"
+	     .Curves "True"
+	     .ImportAttributes "True"
+	     .ImportCurveAttributes "True"
+	     .Read
+	End With
+
+	' Define & change materials
+	names = Array($object_names)
+	permittivities = Array($permittivities)
+	densities = Array($densities)
+	conductivities = Array($conductivities)
+	reds = Array($reds)
+	greens = Array($greens)
+	blues = Array($blues)
+	n_materials = $n_materials
+
+	For idx = 0 To n_materials - 1
+		With Material
+		     .Reset
+		     .Name names(idx)
+		     .Folder ""
+		     .Rho densities(idx)
+		     .ThermalType "Normal"
+		     .ThermalConductivity "0"
+		     .SpecificHeat "0", "J/K/kg"
+		     .DynamicViscosity "0"
+		     .Emissivity "0"
+		     .MetabolicRate "0.0"
+		     .VoxelConvection "0.0"
+		     .BloodFlow "0"
+		     .MechanicsType "Unused"
+		     .FrqType "all"
+		     .Type "Normal"
+		     .MaterialUnit "Frequency", "MHz"
+		     .MaterialUnit "Geometry", "mm"
+		     .MaterialUnit "Time", "s"
+		     .Epsilon permittivities(idx)
+		     .Mu "1"
+		     .Sigma conductivities(idx)
+		     .TanD "0.0"
+		     .TanDFreq "0.0"
+		     .TanDGiven "False"
+		     .TanDModel "ConstTanD"
+		     .EnableUserConstTanDModelOrderEps "False"
+		     .ConstTanDModelOrderEps "1"
+		     .SetElParametricConductivity "False"
+		     .ReferenceCoordSystem "Global"
+		     .CoordSystemType "Cartesian"
+		     .SigmaM "0"
+		     .TanDM "0.0"
+		     .TanDMFreq "0.0"
+		     .TanDMGiven "False"
+		     .TanDMModel "ConstTanD"
+		     .EnableUserConstTanDModelOrderMu "False"
+		     .ConstTanDModelOrderMu "1"
+		     .SetMagParametricConductivity "False"
+		     .DispModelEps  "None"
+		     .DispModelMu "None"
+		     .DispersiveFittingSchemeEps "Nth Order"
+		     .MaximalOrderNthModelFitEps "10"
+		     .ErrorLimitNthModelFitEps "0.1"
+		     .UseOnlyDataInSimFreqRangeNthModelEps "False"
+		     .DispersiveFittingSchemeMu "Nth Order"
+		     .MaximalOrderNthModelFitMu "10"
+		     .ErrorLimitNthModelFitMu "0.1"
+		     .UseOnlyDataInSimFreqRangeNthModelMu "False"
+		     .UseGeneralDispersionEps "False"
+		     .UseGeneralDispersionMu "False"
+		     .NLAnisotropy "False"
+		     .NLAStackingFactor "1"
+		     .NLADirectionX "1"
+		     .NLADirectionY "0"
+		     .NLADirectionZ "0"
+		     .Colour reds(idx), greens(idx), blues(idx)
+		     .Wireframe "False"
+		     .Reflection "False"
+		     .Allowoutline "True"
+		     .Transparentoutline "False"
+		     .Transparency "50"
+		     .Create
+		End With
+	Next
+End Sub
