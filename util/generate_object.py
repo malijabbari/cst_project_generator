@@ -1,3 +1,5 @@
+from pathlib import Path
+
 import matplotlib.pyplot as plt
 import meshzoo
 import mpl_toolkits
@@ -6,12 +8,10 @@ import pyshtools
 import scipy.interpolate
 from mpl_toolkits.mplot3d.art3d import Poly3DCollection
 from numpy import pi, sqrt, cos, sin, arccos, arctan2
-from pathlib import Path
-import FreeCAD as App
-import Import
-import Part
-import util.constants as constants
+
 import settings
+import util.constants as constants
+from .freecad import App, Part, Import
 
 
 def generate_object():
@@ -163,7 +163,7 @@ def generate_step_file(mesh):
     idx = idx0
     tri_str = ''
     for idx2, tri in enumerate(triangles):
-        if idx2 is not 0:
+        if idx2 != 0:
             tri_str += ','
         tri_str += '#%i' % (idx + 4)
         idx += step

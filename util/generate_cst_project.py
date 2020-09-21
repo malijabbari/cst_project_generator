@@ -1,13 +1,11 @@
-import shutil
+import os
 import zipfile
 from pathlib import Path
-import os
-import random
-from .materials import Materials
 
 import settings
 import util.constants as constants
 from util.generate_model import generate_model
+from .materials import Materials
 
 
 class DstPaths:

@@ -1,25 +1,14 @@
 import time
-from typing import List
-import random
-
-import FreeCAD as App
-import FreeCADGui as Gui
-import Draft
-import Import
-import Part
-import numpy as np
 from pathlib import Path
+from typing import List
 
-import util.constants as constants
-from .generate_object import generate_object
+import numpy as np
+
 import settings
+import util.constants as constants
+from .freecad import App, Gui, Part, Draft, Import
+from .generate_object import generate_object
 from .materials import Materials
-
-# setup with GUI or not, NOTE: I couldn't get the GUI working properly
-if not constants.setup_with_gui:
-    Gui.setupWithoutGUI()
-else:
-    Gui.showMainWindow()
 
 
 def generate_model(dst: str):
