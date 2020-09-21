@@ -1,1 +1,1 @@
-# random_shape_generator
+# CST project generator
