@@ -16,7 +16,6 @@ path_freecad_desktop = 'C:/Program Files/FreeCAD/FreeCAD_0.19.22474/bin'
 path_freecad_server = '/home/tue/s111167/freecad/bin'
 
 # model settings
-export_path_model = 'C:/Users/Dennis/Documents/generated_models'
 export_filename_prefix = 'model_'
 n_objects = randint(low=2, high=3)
 limit_placement = [-50, 50]  # mm
