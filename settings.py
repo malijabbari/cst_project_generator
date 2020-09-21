@@ -16,7 +16,7 @@ path_cst_exe_desktop = 'C:/Program Files (x86)/CST Studio Suite 2020/' \
 # model settings
 export_path_model = 'C:/Users/Dennis/Documents/generated_models'
 export_filename_prefix = 'model_'
-n_objects = randint(low=10, high=15)
+n_objects = randint(low=2, high=3)
 limit_placement = [-50, 50]  # mm
 limit_scale = [10, 100]  # mm
 boundary_radius = 100  # mm

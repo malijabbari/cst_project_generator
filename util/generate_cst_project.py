@@ -66,7 +66,6 @@ def generate_cst_project():
             print('END OF ERROR, TRYING AGAIN')
             print('!' * 30)
             failed = True
-            exit()
 
     # load generated model into CST project
     print('loading generated model into CST project...')
