@@ -113,7 +113,10 @@ def load_model_into_cst_project(dst_paths: DstPaths, materials: Materials):
         cst_exe = settings.path_cst_exe_server
     command = '"%s" -m "%s"' % (str(Path(cst_exe)), dst_paths.script)
     print('\t\t...running command: %s' % command)
-    os.system('"' + command + '"')
+    if settings.is_running_on_desktop:
+        os.system('"' + command + '"')
+    else:
+        os.system(command)
 
 
 def generate_macro_and_script(dst_paths: DstPaths,
