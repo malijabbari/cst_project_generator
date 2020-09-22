@@ -63,7 +63,7 @@ def generate_cst_project():
             materials = generate_model(dst_paths.model)
             failed = False
         except Part.OCCError:
-            print('Part.OCCError occurred, trying again')
+            print('Part.OCCError occurred... generating new model')
         except Exception as error:
             print('!' * 30)
             print('WARNING: FAILED TO GENERATE MODEL, ERROR : ')
