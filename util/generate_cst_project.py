@@ -91,8 +91,10 @@ def load_model_into_cst_project(dst_paths: DstPaths, materials: Materials):
 
     # write generated script & macro to project folder
     print('\t...writing generated script & macro to project-folder')
+    print('\t\t...writing script: %s' % dst_paths.script)
     with open(dst_paths.script, 'w') as file:
         file.write(script)
+    print('\t\t...writing macro: %s' % dst_paths.macro)
     with open(dst_paths.macro, 'w') as file:
         file.write(macro)
 
@@ -104,6 +106,7 @@ def load_model_into_cst_project(dst_paths: DstPaths, materials: Materials):
     else:
         cst_exe = settings.path_cst_exe_server
     command = '"%s" -m "%s"' % (str(Path(cst_exe)), dst_paths.script)
+    print('\t\t...running command: %s' % command)
     os.system('"' + command + '"')
 
 
