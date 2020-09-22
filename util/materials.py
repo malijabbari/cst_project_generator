@@ -11,6 +11,7 @@ class Materials:
         Generate <n> different materials, based on materials defined in
         util.constants.Materials
         """
+        # todo: remove print
         print('len constants.materials')
         print(len(constants.Materials))
         print('n', n)
