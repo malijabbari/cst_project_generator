@@ -17,7 +17,7 @@ path_freecad_server = '/home/tue/s111167/freecad/lib'
 
 # model settings
 export_filename_prefix = 'model_'
-n_objects = randint(low=10, high=20)
+n_objects = randint(low=10, high=15)
 limit_placement = [-50, 50]  # mm
 limit_scale = [10, 100]  # mm
 boundary_radius = 100  # mm
