@@ -6,6 +6,7 @@ import settings
 import util.constants as constants
 from util.generate_model import generate_model
 from .materials import Materials
+from util.freecad import Part
 
 
 class DstPaths:
@@ -61,6 +62,8 @@ def generate_cst_project():
         try:
             materials = generate_model(dst_paths.model)
             failed = False
+        except Part.OCCError:
+            print('Part.OCCError occurred, trying again')
         except Exception as error:
             print('!' * 30)
             print('WARNING: FAILED TO GENERATE MODEL, ERROR : ')
