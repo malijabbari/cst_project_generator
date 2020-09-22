@@ -24,14 +24,15 @@ fi
 for (( job_id=0; job_id<$1; job_id++ ))
 do
   export job_id=$job_id
-  sbatch  --job-name=neural-network-torch-id$job_id \
+  sbatch  --job-name=CST_project_generator_$job_id \
           --nodes=1 \
           --ntasks=1 \
-          --cpus-per-task=1 \
+          --cpus-per-task=2 \
           --time=2-00:00:00 \
           --partition=elec.gpu.q \
           --gres=gpu:1 \
-          --output=output_job_$job_id.txt \
+          --output=output/task_$job_id.txt \
+          --error=output/error_task_$job_id.txt \
           --mail-user=d.m.n.v.d.vorst@student.tue.nl \
           --mail-type=ALL \
           task.sh
