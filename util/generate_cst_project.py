@@ -36,13 +36,14 @@ def generate_cst_project():
             str(idx).zfill(settings.project_folder_name_n_zero_padding)
         folder_path = root.joinpath(folder_name)
 
-        if not folder_path.exists():
-            Path.mkdir(folder_path)
+        try:
             print('creating project-folder: %s', str(folder_path))
+            Path.mkdir(folder_path)
             dst_paths = DstPaths(folder_path)
             del folder_path
             print('\t...Done')
-            break
+        except FileExistsError:
+            pass
 
     # copy & extract project template to project-folder
     print('extracting cst project template to project-folder...')
