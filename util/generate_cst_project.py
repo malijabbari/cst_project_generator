@@ -37,8 +37,8 @@ def generate_cst_project():
         folder_path = root.joinpath(folder_name)
 
         if not folder_path.exists():
-            print('creating project-folder: %s', str(folder_path))
             Path.mkdir(folder_path)
+            print('creating project-folder: %s', str(folder_path))
             dst_paths = DstPaths(folder_path)
             del folder_path
             print('\t...Done')
