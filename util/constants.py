@@ -17,8 +17,9 @@ class FileNames:
     script = 'script.bas'
 
 
-class DstPaths:
-    dir_3d = 'project/Model/3D'
+class RelativePaths:
+    macro = 'project/Model/3D'
+    model = 'project'
 
 
 class StepVariables:

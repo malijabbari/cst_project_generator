@@ -14,11 +14,11 @@ class DstPaths:
         self.zip = str(folder)
         self.project = str(folder.joinpath(constants.FileNames.project))
         self.model = str(folder
-                         .joinpath(constants.DstPaths.dir_3d)
+                         .joinpath(constants.RelativePaths.model)
                          .joinpath(constants.FileNames.model))
         self.script = str(Path(folder).joinpath(constants.FileNames.script))
         self.macro = str(Path(folder)
-                         .joinpath(constants.DstPaths.dir_3d)
+                         .joinpath(constants.RelativePaths.macro)
                          .joinpath(constants.FileNames.macro))
 
 
@@ -71,7 +71,7 @@ def generate_cst_project():
     print('\t...done')
 
     # remove script
-    # os.remove(dst_paths.script)
+    os.remove(dst_paths.script)
 
 
 def load_model_into_cst_project(dst_paths: DstPaths, materials: Materials):
@@ -130,8 +130,11 @@ def generate_macro_and_script(dst_paths: DstPaths,
     # insert path of CST project
     s = s.replace(constants.ScriptVariables.project_path, dst_paths.project)
 
-    # insert path of randomly generated model
-    m = m.replace(constants.MacroVariables.model_path, dst_paths.model)
+    # insert RELATIVE path of randomly generated model
+    #   if not relative: model can't be loaded on windows if generated in
+    #   linux and vice versa
+    m = m.replace(constants.MacroVariables.model_path,
+                  constants.FileNames.model)
 
     # insert material properties
     m = m.replace(constants.MacroVariables.densities, materials.densities())
