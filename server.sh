@@ -1,9 +1,9 @@
 #!/usr/bin/bash
 
-# verify that argument (number of tasks) is passed
+# verify that argument (number of jobs) is passed
 if [ -z "$1" ]
 then
-  echo "ERROR: number of tasks needs to be passed as an argument"
+  echo "ERROR: number of jobs needs to be passed as an argument"
   exit 1
 fi
 
@@ -13,24 +13,26 @@ then
   echo "ERROR: $# arguments are given, only 1 is required"
 fi
 
-# verify that number of tasks is > 0
+# verify that number of jobs is > 0
 if [ $1 -lt 1 ]
 then
-  echo "ERROR: number of tasks is < 1"
+  echo "ERROR: number of jobs is < 1"
   exit 1
 fi
 
-# execute tasks
-#sbatch  --partition=elec.gpu.q
-#sbatch  --job-name=CST_project_generation
-#sbatch  --nodes=1
-#sbatch  --ntasks=2
-#sbatch  --cpus-per-task=2 \
-#sbatch  --time=10-00:00:00 \
-#sbatch  --gpus-per-task=1
-#sbatch  --output=output/task_%j.txt \
-#sbatch  --error=output/error_task_%j.txt \
-#sbatch  --mail-user=d.m.n.v.d.vorst@student.tue.nl \
-#sbatch  --mail-type=ALL \
-
-srun -n 2 ./task.sh
+# execute jobs
+for (( job_id=0; job_id<$1; job_id++ ))
+do
+  export job_id=$job_id
+  sbatch  --job-name=neural-network-torch-id$job_id \
+          --nodes=1 \
+          --ntasks=1 \
+          --cpus-per-task=1 \
+          --time=2-00:00:00 \
+          --partition=elec.gpu.q \
+          --gres=gpu:1 \
+          --output=output_job_$job_id.txt \
+          --mail-user=d.m.n.v.d.vorst@student.tue.nl \
+          --mail-type=ALL \
+          single_job.sh
+done
