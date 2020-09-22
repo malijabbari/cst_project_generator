@@ -11,6 +11,9 @@ class Materials:
         Generate <n> different materials, based on materials defined in
         util.constants.Materials
         """
+        print('len constants.materials')
+        print(len(constants.Materials))
+        print('n', n)
         ids = random.sample(range(0, len(constants.Materials)), n)
         materials = []
         for idx in ids:

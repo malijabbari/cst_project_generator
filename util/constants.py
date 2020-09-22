@@ -97,5 +97,5 @@ Materials = [
     Material('spinalcord', 42, 0.45, 1043, Colors.lavender),
     Material('thyroid', 61, 0.89, 1050, Colors.olive),
     Material('tooth', 13, 0.09, 2160, Colors.mint),
-    Material('tumour', 59, 0.89, 1050, Colors.magenta),
+    Material('tumour', 59, 0.89, 1050, Colors.magenta)
 ]
