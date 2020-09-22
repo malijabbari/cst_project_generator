@@ -1,10 +1,6 @@
 #!/usr/bin/bash
 
-echo "activating anaconda"
 module activate anaconda
-echo "list environments"
-conda list env
-echo "activating conda-env"
-conda activate conda-env
-echo "running main.py"
+conda activate '/home/tue/s111167/.conda/envs/conda-env'
+conda list
 python main.py
