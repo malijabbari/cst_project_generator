@@ -29,7 +29,7 @@ class Materials:
         array = self._make_array(property_name)
         for idx, elem in enumerate(array):
             # add comma to string, except for the first element
-            if idx is not 0:
+            if idx != 0:
                 s += ','
             # convert to string if number
             if isinstance(elem, (float, int)):
