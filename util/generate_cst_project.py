@@ -1,5 +1,3 @@
-
-
 import os
 import zipfile
 from pathlib import Path
@@ -94,9 +92,17 @@ def load_model_into_cst_project(dst_paths: DstPaths, materials: Materials):
     print('\t\t...writing script: %s' % dst_paths.script)
     with open(dst_paths.script, 'w+') as file:
         file.write(script)
+    if not Path(dst_paths.script).exists():
+        raise Exception('ERROR: did not write script (%s) for some reason. '
+                        'Hint make sure that folder has execution rights'
+                        % dst_paths.script)
     print('\t\t...writing macro: %s' % dst_paths.macro)
     with open(dst_paths.macro, 'w+') as file:
         file.write(macro)
+    if not Path(dst_paths.macro).exists():
+        raise Exception('ERROR: did not write macro (%s) for some reason. '
+                        'Hint make sure that folder has execution rights'
+                        % dst_paths.macro)
 
     # run script, which executes the macro
     #   NOTE: these can't be combined because of a bug in CST
