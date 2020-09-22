@@ -42,6 +42,7 @@ def generate_cst_project():
             dst_paths = DstPaths(folder_path)
             del folder_path
             print('\t...Done')
+            break
         except FileExistsError:
             pass
 
@@ -54,6 +55,8 @@ def generate_cst_project():
     # generate random model and place it into project-folder
     materials = []
     failed = True
+    materials = generate_model(dst_paths.model)
+    failed = False
     while failed:
         try:
             materials = generate_model(dst_paths.model)
