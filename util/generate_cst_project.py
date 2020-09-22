@@ -70,8 +70,8 @@ def generate_cst_project():
     load_model_into_cst_project(dst_paths, materials)
     print('\t...done')
 
-    # remove script
-    os.remove(dst_paths.script)
+    # remove script CAUSES THE SCRIPT NOT TO BE EXECUTED ON SERVER
+    # os.remove(dst_paths.script)
 
 
 def load_model_into_cst_project(dst_paths: DstPaths, materials: Materials):
