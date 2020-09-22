@@ -25,7 +25,7 @@ class DstPaths:
 
 
 def generate_cst_project():
-    if settings.project_folder_name_n_zero_padding:
+    if settings.is_running_on_desktop:
         root = Path(settings.project_root_folder_desktop)
     else:
         root = Path(settings.project_root_folder_server)
