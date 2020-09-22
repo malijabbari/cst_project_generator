@@ -34,5 +34,5 @@ do
           --output=output_job_$job_id.txt \
           --mail-user=d.m.n.v.d.vorst@student.tue.nl \
           --mail-type=ALL \
-          single_job.sh
+          task.sh
 done
