@@ -56,8 +56,6 @@ def generate_cst_project():
     # generate random model and place it into project-folder
     materials = []
     failed = True
-    materials = generate_model(dst_paths.model)
-    failed = False
     while failed:
         try:
             materials = generate_model(dst_paths.model)
