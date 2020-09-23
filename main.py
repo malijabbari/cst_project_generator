@@ -10,5 +10,5 @@ else:
     parser.add_argument("--job_id", help="server job id-number", type=int)
     job_id = parser.parse_args().job_id
 
-for idx in range(0, 1000):
+for idx in range(0, 1):
     generate_cst_project(job_id)

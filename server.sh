@@ -29,8 +29,7 @@ do
           --ntasks=1 \
           --cpus-per-task=2 \
           --time=2-00:00:00 \
-          --partition=elec.gpu.q \
-          --gres=gpu:1 \
+          --partition=elec.default.q \
           --output=output/task_$job_id.txt \
           --error=output/error_task_$job_id.txt \
           --mail-user=d.m.n.v.d.vorst@student.tue.nl \
