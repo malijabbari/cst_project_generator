@@ -141,8 +141,10 @@ def load_model_into_cst_project(dst_paths: DstPaths, materials: Materials):
         cst_exe = settings.path_cst_exe_server
     command = '"%s" -m "%s"' % (str(Path(cst_exe)), dst_paths.script)
     print('\t\trunning command: %s' % command)
-    # if settings.is_running_on_desktop:
-    cst_msg = subprocess.check_output(command).decode('utf-8')
+    if settings.is_running_on_desktop:
+        cst_msg = subprocess.check_output(command).decode('utf-8')
+    else:
+        cst_msg = subprocess.check_output(command, shell=True).decode('utf-8')
     # format & print cst_msg
     if settings.Print.cst_output:
         cst_msg = '\t\t\t| ' + \
