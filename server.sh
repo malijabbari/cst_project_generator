@@ -27,9 +27,9 @@ do
   sbatch  --job-name=CST_project_generator_$job_id \
           --nodes=1 \
           --ntasks=1 \
-          --cpus-per-task=2 \
+          --cpus-per-task=1 \
           --time=2-00:00:00 \
-          --partition=elec.default.q \
+          --partition=elec.gpu.q \
           --output=output/task_$job_id.txt \
           --error=output/error_task_$job_id.txt \
           --mail-user=d.m.n.v.d.vorst@student.tue.nl \
