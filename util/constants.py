@@ -6,7 +6,11 @@ class SrcPaths:
     script = 'data/script_template.bas'
     macro = 'data/macro_template.mcs'
     step = 'data/step_template.stp'
-    object = 'data/tmp_object.stp'
+    object = ''
+
+    @staticmethod
+    def object(job_id):
+        return 'data/tmp_object_%i.stp' % job_id
 
 
 class FileNames:
@@ -16,6 +20,7 @@ class FileNames:
     macro = 'macro.mcs'
     script = 'script.bas'
     materials = 'materials.json'
+    model2d = 'model2d.dxf'
 
 
 class RelativePaths:
@@ -29,6 +34,7 @@ class StepVariables:
 
 class ScriptVariables:
     project_path = '$project_path'
+    model2d_path = '$model2d_path'
 
 
 class MacroVariables:

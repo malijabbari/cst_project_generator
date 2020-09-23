@@ -26,9 +26,10 @@ class DstPaths:
                          .joinpath(constants.FileNames.macro))
         self.materials = str(Path(folder)
                              .joinpath(constants.FileNames.materials))
+        self.model2d = str(Path(folder).joinpath(constants.FileNames.model2d))
 
 
-def generate_cst_project():
+def generate_cst_project(job_id: int):
     print('\n')
     print('#' * constants.Print.line_length)
     print('GENERATING CST PROJECT\n')
@@ -69,7 +70,7 @@ def generate_cst_project():
     print('generating random patient-model...')
     while failed:
         try:
-            materials = generate_model(dst_paths.model)
+            materials = generate_model(dst_paths.model, job_id)
             failed = False
         except Part.OCCError:
             print('...FAILED: Part.OCCError occurred')
@@ -170,6 +171,9 @@ def generate_macro_and_script(dst_paths: DstPaths,
 
     # insert path of CST project
     s = s.replace(constants.ScriptVariables.project_path, dst_paths.project)
+
+    # insert path of exported 2D model
+    s = s.replace(constants.ScriptVariables.model2d_path, dst_paths.model2d)
 
     # insert RELATIVE path of randomly generated model
     #   if not relative: model can't be loaded on windows if generated in

@@ -4,14 +4,6 @@ from numpy.random import randint
 
 import util.constants as constants
 
-
-# print settings
-class Print:
-    script = True
-    macro = True
-    cst_output = True
-
-
 # project settings
 project_root_folder_desktop = 'C:/Users/Dennis/Documents/generated_projects'
 project_root_folder_server = '/home/tue/s111167/generated_projects'
@@ -29,7 +21,6 @@ path_freecad_server = '/home/tue/s111167/freecad/lib'
 # model settings
 export_filename_prefix = 'model_'
 n_objects = randint(low=10, high=len(constants.Materials))
-n_objects = 2
 limit_placement = [-50, 50]  # mm
 limit_scale = [10, 100]  # mm
 boundary_radius = 100  # mm
@@ -41,3 +32,10 @@ n_iter = 5
 n_pnts = 15
 frequency_power_decrease_rate = 1
 objectname_prefix = 'object_'
+
+
+# print settings
+class Print:
+    script = True
+    macro = True
+    cst_output = True

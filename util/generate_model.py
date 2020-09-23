@@ -11,7 +11,7 @@ from .generate_object import generate_object
 from .materials import Materials
 
 
-def generate_model(dst: str):
+def generate_model(dst: str, job_id: int):
     # print('=' * constants.Print.line_length)
     # print('GENERATING MODEL')
     documentname = 'model_generator'
@@ -46,7 +46,7 @@ def generate_model(dst: str):
     doc = App.newDocument(documentname)
 
     print('\tgenerating objects...')
-    objects, materials = _generate_objects(doc)
+    objects, materials = _generate_objects(doc, job_id)
     print('\t\t...done')
 
     print('\tmoving objects...')
@@ -178,14 +178,14 @@ def _insert_object(obj_base, obj_insert):
     return obj_base, obj_insert
 
 
-def _generate_objects(doc):
+def _generate_objects(doc, job_id: int):
     objects = []
     materials = Materials(settings.n_objects)
     for idx in range(settings.n_objects):
         label = settings.objectname_prefix + '%03i' % idx
         print('\t\tgenerating %s' % label)
-        generate_object()
-        obj = Import.insert(constants.SrcPaths.object, doc.Name)[0][0]
+        generate_object(job_id)
+        obj = Import.insert(constants.SrcPaths.object(job_id), doc.Name)[0][0]
         obj.Label = label
         materials.materials[idx].object_name = label
         objects.append(obj)

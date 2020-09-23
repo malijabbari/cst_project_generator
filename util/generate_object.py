@@ -14,7 +14,7 @@ import util.constants as constants
 from .freecad import App, Part, Import
 
 
-def generate_object():
+def generate_object(job_id: int):
     # generate mesh with equally distributed points on surface
     mesh, n_points = generate_unity_sphere(settings.n_iter)
     r0, phi0, theta0 = cartesian_to_spherical_coordinates(
@@ -35,10 +35,10 @@ def generate_object():
 
     # create and save step file
     step_file = generate_step_file(mesh)
-    with open(constants.SrcPaths.object, 'w') as file:
+    with open(constants.SrcPaths.object(job_id), 'w') as file:
         file.write(step_file)
 
-    convert_shell_stp_to_object_stp(constants.SrcPaths.object)
+    convert_shell_stp_to_object_stp(constants.SrcPaths.object(job_id))
 
     # return the mesh
     return mesh
