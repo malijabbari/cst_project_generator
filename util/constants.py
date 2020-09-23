@@ -15,6 +15,7 @@ class FileNames:
     model = 'model.stp'
     macro = 'macro.mcs'
     script = 'script.bas'
+    materials = 'materials.json'
 
 
 class RelativePaths:
@@ -40,6 +41,10 @@ class MacroVariables:
     greens = '$greens'
     blues = '$blues'
     n_materials = '$n_materials'
+
+
+class Print:
+    line_length = 80
 
 
 class Colors:
@@ -82,6 +87,16 @@ class Material:
         self.red = color[0] / 255.0
         self.green = color[1] / 255.0
         self.blue = color[2] / 255.0
+
+    def to_dict(self):
+        return {'name': self.name,
+                'object_name': self.object_name,
+                'permittivity': self.permittivity,
+                'density': self.density,
+                'conductivity': self.conductivity,
+                'red': self.red,
+                'green': self.green,
+                'blue': self.blue}
 
 
 Materials = [

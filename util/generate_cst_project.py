@@ -1,12 +1,15 @@
+import subprocess
+import json
 import os
+import time
 import zipfile
 from pathlib import Path
 
 import settings
 import util.constants as constants
+from util.freecad import Part
 from util.generate_model import generate_model
 from .materials import Materials
-from util.freecad import Part
 
 
 class DstPaths:
@@ -21,9 +24,15 @@ class DstPaths:
         self.macro = str(Path(folder)
                          .joinpath(constants.RelativePaths.macro)
                          .joinpath(constants.FileNames.macro))
+        self.materials = str(Path(folder)
+                             .joinpath(constants.FileNames.materials))
 
 
 def generate_cst_project():
+    print('\n')
+    print('#' * constants.Print.line_length)
+    print('GENERATING CST PROJECT\n')
+    time_start = time.time()
     if settings.is_running_on_desktop:
         root = Path(settings.project_root_folder_desktop)
     else:
@@ -39,7 +48,8 @@ def generate_cst_project():
 
         try:
             Path.mkdir(folder_path)
-            print('created project-folder: %s', str(folder_path))
+            print('creating project-folder')
+            print('\t%s' % str(folder_path))
             dst_paths = DstPaths(folder_path)
             del folder_path
             print('\t...Done')
@@ -56,72 +66,95 @@ def generate_cst_project():
     # generate random model and place it into project-folder
     materials = []
     failed = True
+    print('generating random patient-model...')
     while failed:
         try:
             materials = generate_model(dst_paths.model)
             failed = False
         except Part.OCCError:
-            print('Part.OCCError occurred... generating new model')
+            print('...FAILED: Part.OCCError occurred')
+            print('Attempting to generate different model')
         except Exception as error:
-            print('!' * 30)
+            print('!' * constants.Print.line_length)
             print('WARNING: FAILED TO GENERATE MODEL, ERROR : ')
             print(error)
             print('END OF ERROR, TRYING AGAIN')
-            print('!' * 30)
-            failed = True
+            print('!' * constants.Print.line_length)
+    print('\t...done')
+
+    # export materials
+    print('exporting materials...')
+    print('\t%s' % dst_paths.materials)
+    with open(dst_paths.materials, 'w+') as file:
+        json.dump(materials.to_dict_arr(), file)
+    print('\t...done')
 
     # load generated model into CST project
     print('loading generated model into CST project...')
     load_model_into_cst_project(dst_paths, materials)
     print('\t...done')
 
-    # remove script CAUSES THE SCRIPT NOT TO BE EXECUTED ON SERVER
-    os.remove(dst_paths.script)
+    print('\nFINISHED GENERATING MODEL IN %.2f min' %
+          ((time.time() - time_start) / 60.0))
+    print('#' * constants.Print.line_length)
+    print('\n')
 
 
 def load_model_into_cst_project(dst_paths: DstPaths, materials: Materials):
     # first generate script and macro
-    print('\t...generating script & macro')
+    print('\tgenerating script & macro')
     script, macro = generate_macro_and_script(dst_paths, materials)
-
-    # print macro and script to console for debugging
-    print('/' * 25 + ' SCRIPT START ' + '\\' * 25)
-    print(script)
-    print('\\' * 25 + ' SCRIPT END ' + '/' * 25)
-    print('/' * 25 + ' MACRO START ' + '\\' * 25)
-    print(macro)
-    print('\\' * 25 + ' MACRO END ' + '/' * 25)
+    # print macro and script
+    if settings.Print.script:
+        print('\t\tScript:')
+        print('\t\t\t| ' + script.replace('\n', '\n\t\t\t| '))
+    if settings.Print.macro:
+        print('\t\tMacro:')
+        print('\t\t\t| ' + macro.replace('\n', '\n\t\t\t| '))
+    print('\t\t...done')
 
     # write generated script & macro to project folder
-    print('\t...writing generated script & macro to project-folder')
-    print('\t\t...writing script: %s' % dst_paths.script)
+    print('\twriting generated script & macro to project-folder')
+    print('\t\twriting script: %s' % dst_paths.script)
     with open(dst_paths.script, 'w+') as file:
         file.write(script)
     if not Path(dst_paths.script).exists():
         raise Exception('ERROR: did not write script (%s) for some reason. '
                         'Hint make sure that folder has execution rights'
                         % dst_paths.script)
-    print('\t\t...writing macro: %s' % dst_paths.macro)
+    print('\t\twriting macro: %s' % dst_paths.macro)
     with open(dst_paths.macro, 'w+') as file:
         file.write(macro)
     if not Path(dst_paths.macro).exists():
         raise Exception('ERROR: did not write macro (%s) for some reason. '
                         'Hint make sure that folder has execution rights'
                         % dst_paths.macro)
+    print('\t\t...done')
 
     # run script, which executes the macro
     #   NOTE: these can't be combined because of a bug in CST
-    print('\t...executing script/macro')
+    print('\texecuting script/macro')
     if settings.is_running_on_desktop:
         cst_exe = settings.path_cst_exe_desktop
     else:
         cst_exe = settings.path_cst_exe_server
     command = '"%s" -m "%s"' % (str(Path(cst_exe)), dst_paths.script)
-    print('\t\t...running command: %s' % command)
-    if settings.is_running_on_desktop:
-        os.system('"' + command + '"')
-    else:
-        os.system(command)
+    print('\t\trunning command: %s' % command)
+    # if settings.is_running_on_desktop:
+    cst_msg = subprocess.check_output(command).decode('utf-8')
+    # format & print cst_msg
+    if settings.Print.cst_output:
+        cst_msg = '\t\t\t| ' + \
+                  cst_msg.replace('\r', '').replace('\n', '\n\t\t\t| ')
+        print(cst_msg)
+    # else:
+    #     os.system(command)
+    print('\t\t...done')
+
+    # remove script
+    print('\tRemoving script...')
+    os.remove(dst_paths.script)
+    print('\t\t...Done')
 
 
 def generate_macro_and_script(dst_paths: DstPaths,

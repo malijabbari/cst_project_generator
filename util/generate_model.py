@@ -12,8 +12,8 @@ from .materials import Materials
 
 
 def generate_model(dst: str):
-    print('#' * 60)
-    print('GENERATING MODEL')
+    # print('=' * constants.Print.line_length)
+    # print('GENERATING MODEL')
     documentname = 'model_generator'
 
     time_start = time.time()
@@ -28,61 +28,62 @@ def generate_model(dst: str):
     scales = _random_scales(settings.limit_scale, settings.n_objects)
     insert_order = _order_scales_by_magnitude(scales)
 
-    print('-' * 41)
-    for idx in range(len(scales)):
-        xyz = placements[idx].Base
-        rpy = placements[idx].Rotation.RawAxis
-        print('% -13s %i' % ('id:', idx))
-        print('% -13s x=% -7.2f y=% -7.2f z=% -7.2f' %
-              ('placement:', xyz.x, xyz.y, xyz.z))
-        print('% -13s r=% -7.2f p=% -7.2f y=% -7.2f' % (
-            '', rpy.x, rpy.y, rpy.z))
-        print('% -13s x=% -7.2f y=% -7.2f z=% -7.2f' % (
-            'scale:', scales[idx].x, scales[idx].y, scales[idx].z))
-        print('% -13s %i' % ('insert_order', insert_order[idx]))
-        print('-' * 41)
+    # print('-' * constants.Print.line_length)
+    # for idx in range(len(scales)):
+    #     xyz = placements[idx].Base
+    #     rpy = placements[idx].Rotation.RawAxis
+    #     print('% -13s %i' % ('id:', idx))
+    #     print('% -13s x=% -7.2f y=% -7.2f z=% -7.2f' %
+    #           ('placement:', xyz.x, xyz.y, xyz.z))
+    #     print('% -13s r=% -7.2f p=% -7.2f y=% -7.2f' % (
+    #         '', rpy.x, rpy.y, rpy.z))
+    #     print('% -13s x=% -7.2f y=% -7.2f z=% -7.2f' % (
+    #         'scale:', scales[idx].x, scales[idx].y, scales[idx].z))
+    #     print('% -13s %i' % ('insert_order', insert_order[idx]))
+    #     print('-' * constants.Print.line_length)
 
     # create document
     doc = App.newDocument(documentname)
 
-    print('generating objects...')
+    print('\tgenerating objects...')
     objects, materials = _generate_objects(doc)
-    print('\t...done')
+    print('\t\t...done')
 
-    print('moving objects...')
+    print('\tmoving objects...')
     objects = _move_objects(objects, placements)
-    print('\t...done')
+    print('\t\t...done')
 
-    print('changing object scale...')
+    print('\tchanging object scale...')
     objects = _scale_objects(objects, scales)
-    print('\t...done')
+    print('\t\t...done')
 
-    print('inserting objects into one another...')
+    print('\tinserting objects into one another...')
     for idx_insert in range(1, len(insert_order)):
         # insert objects[idx] into all object with index < idx
         for idx_base in range(idx_insert):
-            print('\t...inserting obj%03i into obj%03i' %
-                  (idx_insert, idx_base))
             objects[idx_base], objects[idx_insert] = _insert_object(
                 objects[idx_base], objects[idx_insert])
-    print('\t...done')
+    print('\t\t...done')
 
-    print('Applying cylindrical boundary...')
+    print('\tApplying cylindrical boundary...')
     objects = _bound_objects_by_cylinder(objects,
                                          settings.boundary_radius,
                                          settings.boundary_height)
-    print('\t...done')
+    print('\t\t...done')
 
-    print('exporting model...')
+    print('\texporting model...')
     Import.export(objects, dst)
-    print('\t...done')
+    print('\t\t...done')
 
-    print('closing document...')
+    print('\tclosing document...')
     App.closeDocument(doc.Name)
-    print('\t...done')
+    print('\t\t...done')
 
-    print('FINISHED GENERATING MODEL (%.2f sec)' % (time.time() - time_start))
-    print('#' * 60)
+    print('\tfinished generating model in %.2f seconds' %
+          (time.time() - time_start))
+    # print('\tFINISHED GENERATING MODEL (%.2f sec)'
+    # % (time.time() - time_start))
+    # print('=' * constants.Print.line_length)
 
     return materials
 
@@ -117,6 +118,11 @@ def _order_scales_by_magnitude(scales):
 
 def _move_objects(objects, placements):
     for obj, placement in zip(objects, placements):
+        xyz = placement.Base
+        rpy = placement.Rotation.RawAxis
+        print('\t\tplacing %s at x=% -7.2f y=% -7.2f z=% -7.2f '
+              'roll=% -7.2f pitch=% -7.2f yaw=% -7.2f' %
+              (obj.Label, xyz.x, xyz.y, xyz.z, rpy.x, rpy.y, rpy.z))
         obj.Placement = placement
     return objects
 
@@ -127,6 +133,8 @@ def _scale_objects(objects, scales):
     made, which is then scaled and the original object is deleted
     """
     for (object_idx, obj), scale in zip(enumerate(objects), scales):
+        print('\t\tscaling %s by x=% -7.2f y=% -7.2f z=% -7.2f' %
+              (obj.Label, scale.x, scale.y, scale.z))
         label = obj.Label
         clone = Draft.clone(obj, forcedraft=True)
         clone.Scale = scale
@@ -147,6 +155,8 @@ def _insert_object(obj_base, obj_insert):
     original object_base (as it is replaced by object_cut) and returns the
     cut object and the insert object.
     """
+    print('\t\tInserting object %s into %s' %
+          (obj_base.Label, obj_insert.Label))
     doc = obj_insert.Document
     # create & compute cut
     cut = doc.addObject('Part::Cut', 'Cut')
@@ -173,7 +183,7 @@ def _generate_objects(doc):
     materials = Materials(settings.n_objects)
     for idx in range(settings.n_objects):
         label = settings.objectname_prefix + '%03i' % idx
-        print('\t...generating %s' % label)
+        print('\t\tgenerating %s' % label)
         generate_object()
         obj = Import.insert(constants.SrcPaths.object, doc.Name)[0][0]
         obj.Label = label

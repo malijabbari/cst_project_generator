@@ -91,4 +91,46 @@ Sub Main ()
 		     .Create
 		End With
 	Next
+	
+	' combine subsolids
+	combine_subsolids
 End Sub
+
+
+
+Sub combine_subsolids
+	' get the treename of the patient model (not the phased_array)
+	patient_model = Resulttree.GetFirstChildName("Components")
+	If InStr(patient_model, "phased_array") > 0 Then
+		patient_model = Resulttree.GetNextItemName(patient_model)
+	End If
+
+	' loop objects in patient_model
+	current_object = Resulttree.GetFirstChildName(patient_model)
+	While Len(current_object) > 0
+		' combine children
+		first_solid = Resulttree.GetFirstChildName(current_object)
+		second_solid = Resulttree.GetNextItemName(first_solid)
+		While Len(second_solid) > 0
+			' combine first and second solid, also update tree since this changes it
+			Solid.Add treename_to_objectname(first_solid), treename_to_objectname(second_solid)
+			UpdateTree
+			' obtain solids again (second solid should be empty if there is only 1 remaining)
+			first_solid = Resulttree.GetFirstChildName(current_object)
+			second_solid = Resulttree.GetNextItemName(first_solid)
+		Wend
+		' get next object
+		current_object = Resulttree.GetNextItemName(current_object)
+	Wend
+End Sub
+
+
+Function treename_to_objectname(treename)
+	treename = Split(treename, "\", 2)(1)  ' remove "components\" from string
+	treename = Split( StrReverse(treename) , "\", 2)  ' seperate componentname and solidname
+	componentname = StrReverse( treename(1) )
+	solidname = StrReverse( treename(0) )
+	objectname = componentname + ":" + solidname
+	objectname = Replace(objectname, "\", "/")  ' replace \ with /
+	treename_to_objectname = objectname
+End Function
