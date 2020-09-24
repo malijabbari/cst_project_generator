@@ -20,8 +20,7 @@ max_projects = 10000
 if is_running_on_desktop:
     n_projects = 1
 else:
-    n_projects = 300
-    n_projects = 1  # todo: remove
+    n_projects = 156
 
 # model settings
 export_filename_prefix = 'model_'
@@ -30,7 +29,7 @@ limit_scale = [10, 100]  # mm
 boundary_radius = 100  # mm
 boundary_height = [-50, 50]  # mm
 if is_running_on_desktop:
-    n_objects = 10
+    n_objects = 2
 else:
     n_objects = randint(low=8, high=len(constants.Materials)-1)
 

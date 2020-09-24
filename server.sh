@@ -27,7 +27,7 @@ do
   sbatch  --job-name=CST_project_generator_$job_id \
           --nodes=1 \
           --ntasks=1 \
-          --cpus-per-task=2 \
+          --cpus-per-task=1 \
           --time=2-00:00:00 \
           --partition=tue.default.q \
           --output=output/t$job_id.txt \
