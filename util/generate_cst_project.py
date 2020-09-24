@@ -144,7 +144,9 @@ def load_model_into_cst_project(dst_paths: DstPaths, materials: Materials):
     if settings.is_running_on_desktop:
         cst_msg = subprocess.check_output(command).decode('utf-8')
     else:
-        cst_msg = subprocess.check_output(command, shell=True).decode('utf-8')
+        # cst_msg = subprocess.check_output(command, shell=True).decode('utf-8')
+        cst_msg = ''
+        os.system(command)
     # format & print cst_msg
     if settings.Print.cst_output:
         cst_msg = '\t\t\t| ' + \
