@@ -34,6 +34,7 @@ class StepVariables:
 
 class ScriptVariables:
     project_path = '$project_path'
+    macro_path = '$macro_path'
     model2d_path = '$model2d_path'
 
 

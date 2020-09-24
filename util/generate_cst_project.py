@@ -171,19 +171,14 @@ def generate_macro_and_script(dst_paths: DstPaths,
     with open(constants.SrcPaths.macro, 'r') as file:
         m += file.read()
 
-    # insert path of CST project
+    # insert variables in script
     s = s.replace(constants.ScriptVariables.project_path, dst_paths.project)
-
-    # insert path of exported 2D model
+    s = s.replace(constants.ScriptVariables.macro_path, dst_paths.macro)
     s = s.replace(constants.ScriptVariables.model2d_path, dst_paths.model2d)
 
-    # insert RELATIVE path of randomly generated model
-    #   if not relative: model can't be loaded on windows if generated in
-    #   linux and vice versa
+    # insert variables in macro
     m = m.replace(constants.MacroVariables.model_path,
                   constants.FileNames.model)
-
-    # insert material properties
     m = m.replace(constants.MacroVariables.densities, materials.densities())
     m = m.replace(constants.MacroVariables.reds, materials.reds())
     m = m.replace(constants.MacroVariables.greens, materials.greens())
