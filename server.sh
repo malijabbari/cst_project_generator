@@ -30,8 +30,8 @@ do
           --cpus-per-task=1 \
           --time=2-00:00:00 \
           --partition=elec-em.gpu.q \
-          --output=output/task_$job_id.txt \
-          --error=output/error_task_$job_id.txt \
+          --output=output/t$job_id.txt \
+          --error=output/e$job_id.txt \
           --mail-user=d.m.n.v.d.vorst@student.tue.nl \
           --mail-type=ALL \
           task.sh
