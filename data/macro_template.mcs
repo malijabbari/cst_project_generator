@@ -93,7 +93,7 @@ Sub Main ()
 	Next
 	
 	' combine subsolids
-	combine_subsolids
+	' combine_subsolids
 End Sub
 
 
