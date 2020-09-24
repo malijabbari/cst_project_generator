@@ -146,14 +146,12 @@ def load_model_into_cst_project(dst_paths: DstPaths, materials: Materials):
     else:
         # cst_msg = subprocess.check_output(command, shell=True).decode('utf-8')
         cst_msg = ''
-        os.system(command)
+        # os.system(command)
     # format & print cst_msg
     if settings.Print.cst_output:
         cst_msg = '\t\t\t| ' + \
                   cst_msg.replace('\r', '').replace('\n', '\n\t\t\t| ')
         print(cst_msg)
-    # else:
-    #     os.system(command)
     print('\t\t...done')
 
     # remove script
