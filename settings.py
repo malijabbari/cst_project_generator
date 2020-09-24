@@ -30,10 +30,9 @@ limit_scale = [10, 100]  # mm
 boundary_radius = 100  # mm
 boundary_height = [-50, 50]  # mm
 if is_running_on_desktop:
-    n_objects = 2
+    n_objects = 10
 else:
     n_objects = randint(low=8, high=len(constants.Materials)-1)
-    n_objects = 2  # todo: remove
 
 # object settings
 f_max = 15
