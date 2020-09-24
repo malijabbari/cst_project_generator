@@ -29,7 +29,7 @@ do
           --ntasks=1 \
           --cpus-per-task=1 \
           --time=2-00:00:00 \
-          --partition=elec-em.gpu.q \
+          --partition=tue.default.q \
           --output=output/t$job_id.txt \
           --error=output/e$job_id.txt \
           --mail-user=d.m.n.v.d.vorst@student.tue.nl \
