@@ -5,8 +5,11 @@ Sub Main ()
 	' run macro which loads in the model & changes the material
 	'   also manually add it to history because CST sucks and its code is full
 	'   of bugs
+	Debug.Print "running macro..."
 	RunScript("$macro_path")
+	Debug.Print ''
 	AddToHistory("macro", "RunMacro(""macro"")")
+	Debug.Print "\t...Done"
 
 	' export patient model as 2d dxf format
 	WCS.ActivateWCS "local"
