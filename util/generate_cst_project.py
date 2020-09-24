@@ -1,6 +1,5 @@
-import subprocess
 import json
-import os
+import subprocess
 import time
 import zipfile
 from pathlib import Path
@@ -27,6 +26,8 @@ class DstPaths:
         self.materials = str(Path(folder)
                              .joinpath(constants.FileNames.materials))
         self.model2d = str(Path(folder).joinpath(constants.FileNames.model2d))
+        self.log_script = str(Path(folder)
+                              .joinpath(constants.FileNames.log_script))
 
 
 def generate_cst_project(job_id: int):
@@ -172,6 +173,7 @@ def generate_macro_and_script(dst_paths: DstPaths,
         m += file.read()
 
     # insert variables in script
+    s = s.replace(constants.ScriptVariables.log_path, dst_paths.log_script)
     s = s.replace(constants.ScriptVariables.project_path, dst_paths.project)
     s = s.replace(constants.ScriptVariables.macro_path, dst_paths.macro)
     s = s.replace(constants.ScriptVariables.model2d_path, dst_paths.model2d)

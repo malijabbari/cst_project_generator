@@ -21,6 +21,7 @@ class FileNames:
     script = 'script.bas'
     materials = 'materials.json'
     model2d = 'model2d.dxf'
+    log_script = 'log_script.txt'
 
 
 class RelativePaths:
@@ -33,6 +34,7 @@ class StepVariables:
 
 
 class ScriptVariables:
+    log_path = '$log_path'
     project_path = '$project_path'
     macro_path = '$macro_path'
     model2d_path = '$model2d_path'
