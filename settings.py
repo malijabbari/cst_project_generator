@@ -21,6 +21,7 @@ if is_running_on_desktop:
     n_projects = 1
 else:
     n_projects = 156
+    n_projects = 1  # todo: delete
 
 # model settings
 export_filename_prefix = 'model_'
