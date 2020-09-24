@@ -5,7 +5,7 @@ Sub Main ()
 	' run macro which loads in the model & changes the material
 	'   also manually add it to history because CST sucks and its code is full
 	'   of bugs
-	RunMacro("macro")
+	' RunMacro("macro")
 	AddToHistory("macro", "RunMacro(""macro"")")
 
 	' export patient model as 2d dxf format
