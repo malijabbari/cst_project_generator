@@ -155,9 +155,9 @@ def load_model_into_cst_project(dst_paths: DstPaths, materials: Materials):
     print('\t\t...done')
 
     # remove script
-    print('\tRemoving script...')
-    os.remove(dst_paths.script)
-    print('\t\t...Done')
+    # print('\tRemoving script...')
+    # os.remove(dst_paths.script)
+    # print('\t\t...Done')
 
 
 def generate_macro_and_script(dst_paths: DstPaths,
