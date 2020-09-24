@@ -163,34 +163,34 @@ def load_model_into_cst_project(dst_paths: DstPaths, materials: Materials):
 
 def generate_macro_and_script(dst_paths: DstPaths,
                               materials: Materials) -> [str, str]:
-    s = ''  # script
-    m = ''  # macro
+    # read script, macro and macro_content
+    with open('data/script_template.bas', 'r') as file:
+        s = file.read()
+    with open('data/macro_template.mcs', 'r') as file:
+        m = file.read()
+    with open('data/macro_content.bas', 'r') as file:
+        mc = file.read()
 
-    # read base script and macro into string
-    with open(constants.SrcPaths.script, 'r') as file:
-        s += file.read()
-    with open(constants.SrcPaths.macro, 'r') as file:
-        m += file.read()
+    # fill in macro_content-variables
+    mc = mc.replace('$model_path', constants.FileNames.model)
+    mc = mc.replace('$object_names', materials.object_names())
+    mc = mc.replace('$permittivities', materials.permittivities())
+    mc = mc.replace('$densities', materials.densities())
+    mc = mc.replace('$conductivities', materials.conductivities())
+    mc = mc.replace('$reds', materials.reds())
+    mc = mc.replace('$greens', materials.greens())
+    mc = mc.replace('$blues', materials.blues())
+    mc = mc.replace('$n_materials', str(materials.n))
 
-    # insert variables in script
-    s = s.replace(constants.ScriptVariables.log_path, dst_paths.log_script)
-    s = s.replace(constants.ScriptVariables.project_path, dst_paths.project)
-    s = s.replace(constants.ScriptVariables.macro_path, dst_paths.macro)
-    s = s.replace(constants.ScriptVariables.model2d_path, dst_paths.model2d)
+    # fill in script-variables
+    s = s.replace('$log_path', dst_paths.log_script)
+    s = s.replace('$project_path', dst_paths.project)
+    s = s.replace('$macro_path', dst_paths.macro)
+    s = s.replace('$model2d_path', dst_paths.model2d)
+    s = s.replace('$model_path', constants.FileNames.model)
+    s = s.replace('$macro_content', mc)
 
     # insert variables in macro
-    m = m.replace(constants.MacroVariables.model_path,
-                  constants.FileNames.model)
-    m = m.replace(constants.MacroVariables.densities, materials.densities())
-    m = m.replace(constants.MacroVariables.reds, materials.reds())
-    m = m.replace(constants.MacroVariables.greens, materials.greens())
-    m = m.replace(constants.MacroVariables.blues, materials.blues())
-    m = m.replace(constants.MacroVariables.n_materials, '"%i"' % materials.n)
-    m = m.replace(constants.MacroVariables.object_names,
-                  materials.object_names())
-    m = m.replace(constants.MacroVariables.permittivities,
-                  materials.permittivities())
-    m = m.replace(constants.MacroVariables.conductivities,
-                  materials.conductivities())
+    m = m.replace('$macro_content', mc)
 
     return s, m

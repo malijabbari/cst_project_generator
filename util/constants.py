@@ -101,8 +101,8 @@ class Material:
         return {'name': self.name,
                 'object_name': self.object_name,
                 'permittivity': self.permittivity,
-                'density': self.density,
                 'conductivity': self.conductivity,
+                'density': self.density,
                 'red': self.red,
                 'green': self.green,
                 'blue': self.blue}

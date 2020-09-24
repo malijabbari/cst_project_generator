@@ -1,47 +1,38 @@
 Sub Main ()
-    ' create log
-	Open "$log_path" For Output As #1
-	tab = Chr(9)
+    ' load project
+    OpenFile "$project_path"
 
-	' load project
-	Print #1, "loading project..."
-	OpenFile "$project_path"
-	Print #1, tab + "...done"
+    ' run macro
+    Macro
 
+    ' export model as dxf
+    export_dxf
 
-	' run macro which loads in the model & changes the material
-	'   also manually add it to history because CST sucks and its code is full
-	'   of bugs
-	Print #1, "running macro..."
-	RunScript("$macro_path")
-	Print #1, tab + "...done"
+    ' add macro to history
+    AddToHistory "macro", "RunMacro(""macro"")"
 
-	Print #1, "adding macro to history..."
-	AddToHistory("macro", "RunMacro(""macro"")")
-	Print #1, tab + "...done"
-
-	' export patient model as 2d dxf format
-	Print #1, "exporting model as 2d dxf..."
-	WCS.ActivateWCS "local"
-	With WCS
-		.SetNormal "0", "1", "0"
-		.SetUVector "0", "0", "1"
-		.ActivateWCS "local"
-	End With
-	WCS.ActivateWCS "global"
-	With DXF
-		.Reset
-		.FileName "$model2d_path"
-		.Write
-	End With
-	Print #1, tab + "...done"
-
-	'save project
-	Print #1, "saving project..."
-	Save
-	Print #1, tab + "...done"
-
-	' close log file
-	Close #1
-
+    'save
+    Save
 End Sub
+
+Sub export_dxf
+    ' activate wcs, move it to xyz=0,0,0 and align with xz plane
+    With WCS
+    	.ActivateWCS "local"
+    	.AlignWCSWithGlobalCoordinates
+        .SetNormal "0", "1", "0"
+        .SetUVector "0", "0", "1"
+    End With
+
+    ' export wcs 2d view as dxf
+    With DXF
+        .Reset
+        .FileName "../../../model2d.dxf"
+        .Write
+    End With
+
+    ' reactivate global coordinates
+    WCS.ActivateWCS "global"
+End Sub
+
+$macro_content
