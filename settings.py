@@ -21,6 +21,7 @@ if is_running_on_desktop:
     n_projects = 1
 else:
     n_projects = 156
+    n_projects = 1  # todo: delete
 
 # model settings
 export_filename_prefix = 'model_'
@@ -32,6 +33,7 @@ if is_running_on_desktop:
     n_objects = 2
 else:
     n_objects = randint(low=8, high=len(constants.Materials)-1)
+    n_objects = 2  # todo: delete
 
 # object settings
 f_max = 15
