@@ -6,7 +6,7 @@ import util.constants as constants
 
 # project settings
 project_root_folder_desktop = 'C:/Users/Dennis/Documents/generated_projects'
-project_root_folder_server = '/home/tue/s111167/generated_projects'
+project_root_folder_server = '/home/tue/s111167/generated_projects2'
 project_folder_prefix = 'project_'
 project_folder_name_n_zero_padding = 5
 is_running_on_desktop = os.name == 'nt'  # nt: Windows , posix: Linux

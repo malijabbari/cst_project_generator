@@ -85,8 +85,8 @@ class Material:
     def __init__(self,
                  name,
                  permittivity,
-                 density,
                  conductivity,
+                 density,
                  color):
         self.name = name
         self.object_name = None
