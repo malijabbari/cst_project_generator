@@ -73,24 +73,8 @@ def generate_cst_project(job_id: int):
         file.extractall(dst_paths.zip)
     print_('\t...done')
 
-    # generate random model and place it into project-folder
-    materials = []
-    failed = True
-    print_('generating random patient-model...')
-    while failed:
-        try:
-            materials = generate_model(dst_paths.model, job_id, print_)
-            failed = False
-        except Part.OCCError:
-            print_('...FAILED: Part.OCCError occurred')
-            print_('Attempting to generate different model')
-        except Exception as error:
-            print_('!' * constants.Print.line_length)
-            print_('WARNING: FAILED TO GENERATE MODEL, ERROR : ')
-            print_(error)
-            print_('END OF ERROR, TRYING AGAIN')
-            print_('!' * constants.Print.line_length)
-    print_('\t...done')
+    # generate random patient model and place it into project-folder
+    materials = generate_patient_model(dst_paths.model, job_id, print_)
 
     # export materials
     print_('exporting materials...')
@@ -116,8 +100,9 @@ def generate_cst_project(job_id: int):
 
 
 def execute_script(dst_paths: DstPaths, print_) -> None:
-    # create command that executes the script
-    command = '"%s" -m "%s"' % (settings.path_cst, dst_paths.script)
+    # define command that executes the script
+    command = '"%s" -m -withgpu=2 -numthreads=4 "%s"' % \
+              (settings.path_cst, dst_paths.script)
     print_('\tCommand: %s' % command)
 
     # execute script
@@ -129,3 +114,25 @@ def execute_script(dst_paths: DstPaths, print_) -> None:
         cst_msg = '\t\t\t| ' + \
                   cst_msg.replace('\r', '').replace('\n', '\n\t\t\t| ')
         print_(cst_msg)
+
+
+def generate_patient_model(path_model, job_id, print_):
+    materials = []
+    failed = True
+    print_('generating random patient-model...')
+    while failed:
+        try:
+            materials = generate_model(path_model, job_id, print_)
+            failed = False
+        except Part.OCCError:
+            print_('...FAILED: Part.OCCError occurred')
+            print_('Attempting to generate different model')
+        except Exception as error:
+            print_('!' * constants.Print.line_length)
+            print_('WARNING: FAILED TO GENERATE MODEL, ERROR : ')
+            print_(error)
+            print_('END OF ERROR, TRYING AGAIN')
+            print_('!' * constants.Print.line_length)
+    print_('\t...done')
+
+    return materials
