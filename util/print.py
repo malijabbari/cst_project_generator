@@ -7,7 +7,7 @@ import settings
 class Print:
     print_log = True
 
-    def __init__(self, path_log, job_id):
+    def __init__(self, path_log, job_id: int, partition_id: int):
         self.path_log = path_log
 
         # create empty file
@@ -16,7 +16,7 @@ class Print:
             file.write('')
 
         # write system info
-        self.log(system_info(job_id))
+        self.log(system_info(job_id, partition_id))
 
     @staticmethod
     def _timestamp():
@@ -47,12 +47,14 @@ class Print:
                 file.write(line + '\n')
 
 
-def system_info(job_id) -> str:
+def system_info(job_id: int, partition_id: int) -> str:
     info = 'job_id = %i\n' % job_id
+    info += 'partition_id = %i\n' % partition_id
     if not settings.is_running_on_desktop:
         info = "cpu info:\n"
         info += subprocess.check_output('lscpu', shell=True).decode('utf-8')
         info += '\n'
         info += "memory info:\n"
-        info += subprocess.check_output('free', shell=True).decode('utf-8')
+        info += subprocess.check_output('free -h', shell=True).decode('utf-8')
+        info += '\n'
     return info

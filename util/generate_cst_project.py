@@ -39,7 +39,7 @@ class DstPaths:
                                constants.FileNames.macro)
 
 
-def generate_cst_project(job_id: int):
+def generate_cst_project(job_id: int, partition_id: int):
     time_start = time.time()
     root = Path(settings.project_root)
     dst_paths = None
@@ -58,7 +58,7 @@ def generate_cst_project(job_id: int):
         try:
             Path.mkdir(folder_path)
             dst_paths = DstPaths(folder_path)
-            print_ = Print(dst_paths.log, job_id).log
+            print_ = Print(dst_paths.log, job_id, partition_id).log
             print_('creating project-folder...')
             print_('\t%s' % str(folder_path))
             del folder_path

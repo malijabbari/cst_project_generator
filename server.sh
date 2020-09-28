@@ -7,16 +7,37 @@ then
   exit 1
 fi
 
-# verify that only 1 argument is passed
-if [ $# -gt 1 ]
+# verify that argument (number of jobs) is passed
+if [ -z "$2" ]
 then
-  echo "ERROR: $# arguments are given, only 1 is required"
+  echo "ERROR: number of partitions to use needs to be passed as an argument"
+  exit 1
+fi
+
+# verify that only 1 argument is passed
+if [ $# -gt 2 ]
+then
+  echo "ERROR: $# arguments are given, only 2 are required"
 fi
 
 # verify that number of jobs is > 0
 if [ $1 -lt 1 ]
 then
   echo "ERROR: number of jobs is < 1"
+  exit 1
+fi
+
+# verify that number of partitions is not > 4
+if [ $2 -gt 4 ]
+then
+  echo "ERROR: partition id is > 4"
+  exit 1
+fi
+
+# verify that number of partitions is > 0
+if [ $2 -lt 1 ]
+then
+  echo "ERROR: partition id is < 1"
   exit 1
 fi
 
@@ -29,14 +50,15 @@ declare -a partitions=("tue.default.q"
 for (( job_id=0; job_id<$1; job_id++ ))
 do
   export job_id=$job_id
+  export partition_id=$partition_id
   sbatch  --job-name=CST_project_generator_$job_id_$partition_id \
           --nodes=1 \
           --ntasks=1 \
-          --cpus-per-task=4 \
+          --cpus-per-task=2 \
           --time=10-00:00:00 \
-          --partition=elec.gpu.q \
-          --output=output/t_$job_id \
-          --error=output/e_$job_id \
+          --partition=${partitions[$2]} \
+          --output=output/t_$job_id_$2 \
+          --error=output/e_$job_id_$2 \
           --mail-user=d.m.n.v.d.vorst@student.tue.nl \
           --mail-type=ALL \
           task.sh
