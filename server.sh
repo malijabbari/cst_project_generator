@@ -20,6 +20,11 @@ then
   exit 1
 fi
 
+declare -a partitions=("tue.default.q"
+                       "elec.default.q"
+                       "elec.gpu.q"
+                       "elec-em.gpu.q")
+
 # execute jobs
 for (( job_id=0; job_id<$1; job_id++ ))
 do
@@ -29,7 +34,7 @@ do
           --ntasks=1 \
           --cpus-per-task=4 \
           --time=2-00:00:00 \
-          --partition=elec-em.gpu.q \
+          --partition=elec.gpu.q \
           --output=output/t_$job_id \
           --error=output/e_$job_id \
           --mail-user=d.m.n.v.d.vorst@student.tue.nl \
