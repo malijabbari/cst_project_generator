@@ -1,7 +1,0 @@
-'#Language "WWB-COM"
-
-Sub Main
-    Macro
-End Sub
-
-$macro_content

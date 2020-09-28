@@ -10,7 +10,7 @@ class SrcPaths:
 
     @staticmethod
     def object(job_id):
-        return 'data/tmp_object_%i.stp' % job_id
+        return 'tmp/tmp_object_%i.stp' % job_id
 
 
 class FileNames:
@@ -21,7 +21,7 @@ class FileNames:
     script = 'script.bas'
     materials = 'materials.json'
     model2d = 'model2d.dxf'
-    log_script = 'log_script.txt'
+    log = 'log.txt'
 
 
 class RelativePaths:

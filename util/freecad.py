@@ -7,10 +7,7 @@ App, Gui, Import, Part, Draft = None, None, None, None, None
 try:
     import FreeCAD as App
 except ImportError:
-    if settings.is_running_on_desktop:
-        sys.path.append(settings.path_freecad_desktop)
-    else:
-        sys.path.append(settings.path_freecad_server)
+    sys.path.append(settings.path_freecad)
 
 import FreeCAD as App
 import FreeCADGui as Gui
