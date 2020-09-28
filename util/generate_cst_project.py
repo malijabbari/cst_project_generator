@@ -101,8 +101,9 @@ def generate_cst_project(job_id: int):
 
 def execute_script(dst_paths: DstPaths, print_) -> None:
     # define command that executes the script
-    command = '"%s" -m -withgpu=2 -numthreads=4 "%s"' % \
-              (settings.path_cst, dst_paths.script)
+    command = '"%s" -m -withgpu=%i -numthreads=%i "%s"' % \
+              (settings.path_cst, settings.n_gpu, settings.n_threads,
+               dst_paths.script)
     print_('\tCommand: %s' % command)
 
     # execute script

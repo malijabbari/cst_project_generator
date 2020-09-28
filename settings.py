@@ -9,6 +9,8 @@ project_folder_prefix = 'project_'
 project_folder_name_n_zero_padding = 5
 max_projects = 10000
 is_running_on_desktop = os.name == 'nt'  # nt: Windows , posix: Linux
+n_gpu = 1
+n_threads = 4
 if is_running_on_desktop:
     n_projects = 1
     path_freecad = 'C:/Program Files/FreeCAD/FreeCAD_0.19.22474/bin'
