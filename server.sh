@@ -34,7 +34,7 @@ do
           --ntasks=1 \
           --cpus-per-task=4 \
           --time=10-00:00:00 \
-          --partition=tue.default.q \
+          --partition=elec.default.q \
           --output=output/t_$job_id \
           --error=output/e_$job_id \
           --mail-user=d.m.n.v.d.vorst@student.tue.nl \
