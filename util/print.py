@@ -1,4 +1,7 @@
+import subprocess
 from datetime import datetime
+
+import settings
 
 
 class Print:
@@ -12,8 +15,8 @@ class Print:
         with open(self.path_log, 'w') as file:
             file.write('')
 
-        # write job-id
-        self.log('job_id = %i' % job_id)
+        # write system info
+        self.log(system_info(job_id))
 
     @staticmethod
     def _timestamp():
@@ -42,3 +45,14 @@ class Print:
 
                 # write the line
                 file.write(line + '\n')
+
+
+def system_info(job_id) -> str:
+    info = 'job_id = %i\n' % job_id
+    if not settings.is_running_on_desktop:
+        info = "cpu info:\n"
+        info += subprocess.check_output('lscpu', shell=True).decode('utf-8')
+        info += '\n'
+        info += "memory info:\n"
+        info += subprocess.check_output('free', shell=True).decode('utf-8')
+    return info

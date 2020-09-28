@@ -33,7 +33,7 @@ do
           --nodes=1 \
           --ntasks=1 \
           --cpus-per-task=4 \
-          --time=2-00:00:00 \
+          --time=10-00:00:00 \
           --partition=elec.gpu.q \
           --output=output/t_$job_id \
           --error=output/e_$job_id \
