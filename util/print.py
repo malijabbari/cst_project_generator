@@ -32,10 +32,10 @@ class Print:
         with open(self.path_log, 'a') as file:
 
             # split msg at linebreaks
-            for idx, line in enumerate(msg.splitlines()):
+            for idx, line in enumerate(str(msg).splitlines()):
 
                 # write either a timestamp or indent
-                if idx is 0:
+                if idx == 0:
                     file.write(self._timestamp())
                 else:
                     file.write(self._indent())
