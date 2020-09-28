@@ -37,7 +37,7 @@ fi
 # verify that number of partitions is > 0
 if [ $2 -lt 1 ]
 then
-  echo "ERROR: partition id is < 1"
+  echo "ERROR: partition id is < 0"
   exit 1
 fi
 
