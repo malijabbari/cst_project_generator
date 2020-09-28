@@ -29,12 +29,12 @@ declare -a partitions=("tue.default.q"
 for (( job_id=0; job_id<$1; job_id++ ))
 do
   export job_id=$job_id
-  sbatch  --job-name=CST_project_generator_$job_id \
+  sbatch  --job-name=CST_project_generator_$job_id_$partition_id \
           --nodes=1 \
           --ntasks=1 \
           --cpus-per-task=4 \
           --time=10-00:00:00 \
-          --partition=elec.gpu.q \
+          --partition=tue.default.q \
           --output=output/t_$job_id \
           --error=output/e_$job_id \
           --mail-user=d.m.n.v.d.vorst@student.tue.nl \
