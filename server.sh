@@ -46,6 +46,8 @@ declare -a partitions=("tue.default.q"
                        "elec.gpu.q"
                        "elec-em.gpu.q")
 
+echo "check"
+
 # execute jobs
 for (( job_id=0; job_id<$1; job_id++ ))
 do
