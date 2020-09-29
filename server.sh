@@ -27,10 +27,10 @@ then
   exit 1
 fi
 
-# verify that number of partitions is not > 4
-if [ $2 -gt 4 ]
+# verify that number of partitions is not > 3
+if [ $2 -gt 3 ]
 then
-  echo "ERROR: partition id is > 4"
+  echo "ERROR: partition id is > 3"
   exit 1
 fi
 
