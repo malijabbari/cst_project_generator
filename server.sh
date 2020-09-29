@@ -55,6 +55,7 @@ do
           --nodes=1 \
           --ntasks=1 \
           --cpus-per-task=2 \
+          --gres=gpu:1
           --time=10-00:00:00 \
           --partition=${partitions[$2]} \
           --output=output/t_$job_id \
