@@ -28,7 +28,7 @@ then
 fi
 
 # verify that number of partitions is not > 3
-if [ $2 -gt 3 ]
+if [ $2 -gt 4 ]
 then
   echo "ERROR: partition id is > 3"
   exit 1
