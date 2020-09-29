@@ -19,7 +19,7 @@ if is_running_on_desktop:
     project_root = 'C:/Users/Dennis/Documents/generated_projects'
 else:
     n_projects = 156
-    # n_projects = 1  # todo: delete
+    n_projects = 1  # todo: delete
     path_freecad = '/home/tue/s111167/freecad/lib'
     path_cst = '/cm/shared/apps/cst/CST_STUDIO_SUITE_2020' \
                '/cst_design_environment'
