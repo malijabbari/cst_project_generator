@@ -28,7 +28,7 @@ then
 fi
 
 # verify that number of partitions is not > 3
-if [ $2 -gt 4 ]
+if [ $2 -gt 3 ]
 then
   echo "ERROR: partition id is > 3"
   exit 1
@@ -46,8 +46,6 @@ declare -a partitions=("tue.default.q"
                        "elec.gpu.q"
                        "elec-em.gpu.q")
 
-echo "check"
-
 # execute jobs
 for (( job_id=0; job_id<$1; job_id++ ))
 do
@@ -57,7 +55,7 @@ do
           --nodes=1 \
           --ntasks=1 \
           --cpus-per-task=4 \
-          --gres=gpu:1
+          --gres=gpu:1 \
           --time=10-00:00:00 \
           --partition=${partitions[$2]} \
           --output=output/t_$job_id \
