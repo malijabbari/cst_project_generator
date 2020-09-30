@@ -21,7 +21,7 @@ else:
     n_gpu = 2
     n_threads = 8
     n_projects = 156
-    n_projects = 1  # todo: delete
+    n_projects = 24  # todo: delete
     path_freecad = '/home/tue/s111167/freecad/lib'
     path_cst = '/cm/shared/apps/cst/CST_STUDIO_SUITE_2020' \
                '/cst_design_environment'
