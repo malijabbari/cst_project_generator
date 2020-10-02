@@ -51,7 +51,7 @@ def system_info(job_id: int, partition_id: int) -> str:
     info = 'job_id = %i\n' % job_id
     info += 'partition_id = %i\n' % partition_id
     if not settings.is_running_on_desktop:
-        info = "cpu info:\n"
+        info += "cpu info:\n"
         info += subprocess.check_output('lscpu', shell=True).decode('utf-8')
         info += '\n'
         info += "memory info:\n"
