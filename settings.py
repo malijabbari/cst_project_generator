@@ -20,8 +20,10 @@ if is_running_on_desktop:
 else:
     n_gpu = 2
     n_threads = 8
-    n_projects = 156
-    n_projects = 15  # todo: delete
+    # n_projects = 156
+    n_gpu = 0
+    n_threads = 4
+    n_projects = 20  # todo: delete
     path_freecad = '/home/tue/s111167/freecad/lib'
     path_cst = '/cm/shared/apps/cst/CST_STUDIO_SUITE_2020' \
                '/cst_design_environment'
