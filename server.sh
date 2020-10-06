@@ -46,15 +46,19 @@ declare -a partitions=("tue.default.q"
                        "elec.gpu.q"
                        "elec-em.gpu.q")
 
+declare -a cpus = (4 4 8 20)
+declare -a gpus = (0 0 )
+
 # execute jobs
 for (( job_id=0; job_id<$1; job_id++ ))
 do
   export job_id=$job_id
   export partition_id=$2
-  sbatch  --job-name=CST_project_generator_$job_id_$2 \
+  sbatch  --job-name=CST_project_generator_{$job_id}_{$2} \
           --nodes=1 \
           --ntasks=1 \
-          --cpus-per-task=4 \
+          --cpus-per-task=${cpus[$2]} \
+          --gres=gpu:${gpus[$2]}\
           --time=10-00:00:00 \
           --partition=${partitions[$2]} \
           --output=output/t_$job_id_$2 \
