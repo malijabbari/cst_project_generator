@@ -10,20 +10,13 @@ project_folder_name_n_zero_padding = 5
 max_projects = 10000
 is_running_on_desktop = os.name == 'nt'  # nt: Windows , posix: Linux
 if is_running_on_desktop:
-    n_gpu = 1
-    n_cpu = 4
     n_projects = 1
     path_freecad = 'C:/Program Files/FreeCAD/FreeCAD_0.19.22474/bin'
     path_cst = 'C:/Program Files (x86)/CST Studio Suite 2020/' \
                'CST DESIGN ENVIRONMENT.exe'
     project_root = 'C:/Users/Dennis/Documents/generated_projects'
 else:
-    n_gpu = 2
-    n_threads = 8
-    # n_projects = 156
-    n_gpu = 0
-    n_threads = 4
-    n_projects = 20  # todo: delete
+    n_projects = 20
     path_freecad = '/home/tue/s111167/freecad/lib'
     path_cst = '/cm/shared/apps/cst/CST_STUDIO_SUITE_2020' \
                '/cst_design_environment'

@@ -39,7 +39,12 @@ class DstPaths:
                                constants.FileNames.macro)
 
 
-def generate_cst_project(job_id: int, partition_id: int):
+def generate_cst_project(
+        job_id: int,
+        partition_id: int,
+        n_cpus: int,
+        n_gpus: int
+) -> None:
     time_start = time.time()
     root = Path(settings.project_root)
     dst_paths = None
@@ -90,7 +95,7 @@ def generate_cst_project(job_id: int, partition_id: int):
     print_('\t...done')
 
     print_('executing script...')
-    execute_script(dst_paths, print_)
+    execute_script(dst_paths, print_, n_cpus, n_gpus)
     print('\t...done')
 
     print_('\nFINISHED GENERATING MODEL IN %.2f min' %
@@ -99,11 +104,15 @@ def generate_cst_project(job_id: int, partition_id: int):
     print_('\n')
 
 
-def execute_script(dst_paths: DstPaths, print_) -> None:
+def execute_script(
+        dst_paths: DstPaths,
+        print_: Print.log,
+        n_cpus: int,
+        n_gpus: int,
+) -> None:
     # define command that executes the script
     command = '"%s" -m -withgpu=%i -numthreads=%i "%s"' % \
-              (settings.path_cst, settings.n_gpu, settings.n_threads,
-               dst_paths.script)
+              (settings.path_cst, n_gpus, n_cpus, dst_paths.script)
     print_('\tCommand: %s' % command)
 
     # execute script
