@@ -47,7 +47,7 @@ declare -a partitions=("tue.default.q"
                        "elec-em.gpu.q")
 
 declare -a cpus=(4 4 8 20)
-declare -a gpus=(0 0 )
+declare -a gpus=(0 0 2 2)
 
 # execute jobs
 for (( job_id=0; job_id<$1; job_id++ ))
