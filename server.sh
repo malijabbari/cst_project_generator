@@ -56,7 +56,7 @@ do
   export partition_id=$2
   export n_cpus=${cpus[$2]}
   export n_gpus=${gpus[$2]}
-  sbatch  --job-name=CST_project_generator_${$job_id}_${2} \
+  sbatch  --job-name=CST_project_${$job_id}_${2} \
           --nodes=1 \
           --ntasks=1 \
           --cpus-per-task=${cpus[$2]} \
