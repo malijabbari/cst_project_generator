@@ -54,6 +54,8 @@ for (( job_id=0; job_id<$1; job_id++ ))
 do
   export job_id=$job_id
   export partition_id=$2
+  export n_cpus=${cpus[$2]}
+  export n_gpus=${gpus[$2]}
   sbatch  --job-name=CST_project_generator_{$job_id}_{$2} \
           --nodes=1 \
           --ntasks=1 \
