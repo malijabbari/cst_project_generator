@@ -7,7 +7,7 @@ then
   exit 1
 fi
 
-# verify that argument (number of jobs) is passed
+# verify that argument (partition id) is passed
 if [ -z "$2" ]
 then
   echo "ERROR: number of partitions to use needs to be passed as an argument"
@@ -46,8 +46,8 @@ declare -a partitions=("tue.default.q"
                        "elec.gpu.q"
                        "elec-em.gpu.q")
 
-declare -a cpus = (4 4 8 20)
-declare -a gpus = (0 0 )
+declare -a cpus=(4 4 8 20)
+declare -a gpus=(0 0 )
 
 # execute jobs
 for (( job_id=0; job_id<$1; job_id++ ))
